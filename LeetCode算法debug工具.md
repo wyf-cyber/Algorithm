@@ -48,6 +48,36 @@ void printList(ListNode* head) {
 }
 ~~~
 
+## 3.找出数组中的众数
+~~~cpp
+   vector<int> searchModes(vector<int> arr) {
+    vector<int> res;
+    int maxcount = 0;
+    int count = 0;
+    sort(arr.begin(), arr.end());
+    for(int i = 0; i < arr.size(); ++i) {
+        if(i == 0) {
+            count = 1;
+            maxcount = 1;
+            res.push_back(arr[0]);
+        }else {
+            if(arr[i-1] == arr[i]) {
+                count++;
+            }else {
+                count = 1;
+            }
+            if(count == maxcount) {
+                res.push_back(arr[i]);
+            }else if(count > maxcount) {
+                res.clear();
+                maxcount = count;
+                res.push_back(arr[i]);
+            }
+        }
+    }
+    return res;
+}
+~~~
 # 五、使用效果
 ![使用效果](https://img-blog.csdnimg.cn/963ed5a9e35c4ec1906de1c0b16216e7.png)
 
