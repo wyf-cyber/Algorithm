@@ -16,15 +16,18 @@ N皇后问题是指将 n 个皇后放在大小为 n×n 的国际象棋棋盘上�
 - 输出方案的顺序任意，不重复且没有遗漏即可。
 
 输出样例：
-"-Q--"
-"---Q"
-"Q---"
-"--Q-"
- 
-"--Q-"
-"Q---"
-"---Q"
-"-Q--"
+Solution 1:
+_Q__
+___Q
+Q___
+__Q_
+
+Solution 2:
+__Q_
+Q___
+___Q
+_Q__
+
 
 **数据范围：**
 1 <= n <= 9
@@ -75,7 +78,7 @@ void backtracking(int n, int i, vector<int> & pos, vector<vector<int>> & ans) {
 void printAns(vector<vector<int>> ans) {
     if(ans.empty()) {
         // 未发现可行解
-        cout << "No solution for this size.";
+        cout << "No solution for this size." << endl;
         return;
     }
     for(int i = 0; i < ans.size(); i++) {
@@ -92,12 +95,16 @@ void printAns(vector<vector<int>> ans) {
 }
 int main() {
     int n = 0;
-    vector<vector<int>> ans;
-    cout << "Please enter the length(width): ";
-    cin >> n;
-    // 记录每个皇后的位置，数组的索引就是皇后的序号，数组元素的值就是该皇后的列数
-    vector<int> pos(n, -1);
-    backtracking(n, 0, pos, ans);
-    printAns(ans);
+    cout << "Please enter the length(width): " << endl;
+    while(cin >> n) {
+        // 记录每个皇后的位置，数组的索引就是皇后的序号，数组元素的值就是该皇后的列数
+        vector<vector<int>> ans;
+        vector<int> pos(n, -1);
+        backtracking(n, 0, pos, ans);
+        printAns(ans);
+        cout << "Please enter the length(width): " << endl;
+    }
 }
 ~~~
+
+
