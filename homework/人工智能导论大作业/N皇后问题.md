@@ -44,11 +44,13 @@ _Q__
 - 当发现将要放置第n+1个皇后时，将当前状态修改为“已找到”并根据先前记录的各个皇后的列数打印出可行解；
 - 当本层函数调用下一层函数以后发现状态变为“已找到”，则停止遍历寻找，立即返回；
 - 如果函数调用完毕且从没有将状态修改为“已找到”，打印"No solution found."表示没有可行解；
-  
+
+
 ### （三）算法代码
 ~~~cpp
 #include <iostream>
 #include <vector>
+#include <chrono>
 using namespace std;
 
 
@@ -86,7 +88,7 @@ void printAns(vector<vector<int>> ans) {
         cout << "Solution " << i+1 << ":" << endl;
         for(int j = 0; j < ans[i].size(); j++) {
             // 遍历每一行
-            string line(ans[i].size(), '_');
+            string line(ans[i].size(), '#');
             line[ans[i][j]] = 'Q';
             cout << line << endl;
         }
@@ -95,14 +97,20 @@ void printAns(vector<vector<int>> ans) {
 }
 int main() {
     int n = 0;
-    cout << "Please enter the length(width): " << endl;
+    cout << "Please enter the length(width): ";
     while(cin >> n) {
+        auto start = chrono::high_resolution_clock::now();
         // 记录每个皇后的位置，数组的索引就是皇后的序号，数组元素的值就是该皇后的列数
         vector<vector<int>> ans;
         vector<int> pos(n, -1);
-        backtracking(n, 0, pos, ans);
+        backtracking(n, 0, pos, ans);       
+        auto stop = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::microseconds>(stop - start);
+        cout << "Time taken by function: " << duration.count() << endl;
+        
         printAns(ans);
-        cout << "Please enter the length(width): " << endl;
+ 
+        cout << "Please enter the length(width): ";
     }
 }
 ~~~
