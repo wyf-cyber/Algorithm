@@ -3,7 +3,7 @@
 #include <vector>
 #include <utility>
 
-#define MaxCol 1000
+#define MaxCol 10
 
 using namespace std;
 
@@ -114,7 +114,9 @@ int main() {
         numsTwo.push_back(cur->data[a2 - 1]);
         cur = cur->next;
     }
+
     vector<pair<int, int>> ans = f(matrixOne,  matrixTwo, numsOne, numsTwo);
+    
     // 打印结果
     for(int i = 0; i < ans.size(); i++) {
         // 每一次循环打印结果中的一行
