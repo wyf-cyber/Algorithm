@@ -9,7 +9,7 @@ using namespace std;
 
 struct DataNode			/*定义数据结点类型*/
 {
-	int data[MaxCol];
+	int data[MaxCol]; 
 	DataNode* next;	  /*指向后继数据结点*/
 };
 
@@ -61,6 +61,7 @@ int main() {
     ofstream output("abc.out");
     int row;
     int col;
+    // 接收数据创建第一个二维链表
     input >> row >> col;
     HNode matrixOne(row, col);
     DataNode* pre = nullptr;              // 建立一个pre指针指向当前节点的前一个节点 
@@ -68,18 +69,21 @@ int main() {
         // 将本行的链表节点接到上一行   
         DataNode* colNode = new DataNode;
         if(i == 0) {
+            // 创建第一行，需要特别处理，因为当前节点的上一个节点是头结点
             matrixOne.next = colNode;
             pre = colNode;
         } else {
             pre->next = colNode;
             pre = colNode;
         }
+        // 将本行数据逐个存入数组中
         for(int j = 0; j < col; j++) {
             int temp;
             input >> temp;
             colNode->data[j] = temp;
         }
     }
+    // 接收数据创建第二个二维链表
     input >> row >> col;
     HNode matrixTwo(row, col); 
     for(int i = 0; i < row; i++) {
@@ -101,7 +105,7 @@ int main() {
     // 读取第一个表R的列序号a1和第二个表S的列序号a2。
     int a1, a2;
     input >> a1 >> a2;
-    // 读取矩阵信息完毕，根据列序号创建两个数组存储两个矩阵指定列的数据信息以便比较
+    // 矩阵创建完毕，根据列序号创建两个数组存储两个矩阵指定列的数据信息以便比较
     vector<int> numsOne;
     DataNode* cur = matrixOne.next;         // 创建一个指针指向当前操作的元素
     for(int i = 0; i < matrixOne.Row; i++) {
@@ -122,6 +126,7 @@ int main() {
         // 每一次循环打印结果中的一行
         // 读取矩阵一中对应的行
         cur = matrixOne.next;
+        // 先将指针指向所要打印的行
         for(int j = 0; j < ans[i].first; j++) {
             cur = cur->next;
         }

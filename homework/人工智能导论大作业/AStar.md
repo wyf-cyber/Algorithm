@@ -16,7 +16,6 @@ struct State {
 struct CompareState {
     bool operator()(const State& a, const State& b) {
         // 在这里指定优先队列如何比较两个状态的优先级
-        // 返回 true 表示 a 的优先级高于 b，false 表示相反
         // 使用状态的 cost 和 evaluation 的和作为比价标准
         // f(n) = futureCost(n) + h(n)
         if (a.cost + a.evaluation != b.cost + b.evaluation) {
@@ -102,7 +101,7 @@ vector<int> aStar(int n) {
         State current = open.top();
         open.pop();
 
-        if (current.cost == 0) {
+        if (current.evaluation == 0) {
             // 找到解
             return current.board;
         }

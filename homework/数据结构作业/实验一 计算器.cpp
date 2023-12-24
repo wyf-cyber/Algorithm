@@ -8,7 +8,7 @@ using namespace std;
 // 中缀表达式转后缀表达式
 vector<string> shift(vector<string> infix) {
     stack<string> ops;       // 运算符栈
-    vector<string> postfix;
+    vector<string> postfix;  // 后缀表达式
     for(int i = 0; i < infix.size(); i++) {
         if(infix[i] == "+" || infix[i] == "-") {
             // 如果运算符栈中为空，直接入栈
@@ -32,7 +32,7 @@ vector<string> shift(vector<string> infix) {
         } else if(infix[i] == ")"){
             string s = ops.top();
             while(s != "(") {
-                // 将高优先级的运算符出栈并加入后缀表达式中
+                // 将左括号上面的所有运算符出栈并加入后缀表达式中
                 ops.pop();
                 postfix.push_back(s);
                 if(ops.empty()) {
@@ -110,7 +110,7 @@ int calculating(vector<string> postfix) {
 int main() {
     char c;
     int count = -1;                 // 记录当前数组的最后一个元素的位置
-    bool preIsNum = false;
+    bool preIsNum = false;          // 记录上一个字符是否是数字
     vector<string> infix;
     string input; // 用于读取输入的完整表达式
 
