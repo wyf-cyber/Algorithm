@@ -73,21 +73,7 @@ module CPU(
     wire[31:0] inst_in;
     wire[2:0] branch;
     //rom每周期地址顺序取数
-    //always @(posedge Clk_CPU or negedge rstn) begin
-    //    if(!rstn) begin rom_addr = 5'b0; end
-    //    else begin
-    //        if (rom_addr < 16 & rom_addr >=0) begin
-    //            if(sw_i[1]==1'b0 & branch[0]==1'b0)begin
-    //                rom_addr = rom_addr + 1'b1;
-    //            end else begin 
-    //                rom_addr = rom_addr;
-    //               // branch_reg[0] = 1'b0;
-    //                end
-    //        end
-    //        else
-    //            rom_addr = 5'b00000; 
-    //        end
-    //    end
+    //更新PC地址的代码逻辑全部放置于WB阶段
  
     //从coe文件中取指令
     dist_instr u_im(

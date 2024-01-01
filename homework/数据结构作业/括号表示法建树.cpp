@@ -53,7 +53,7 @@ vector<string> trans(string s) {
 }
 
 TreeNode* build(vector<string>& s) {
-    BTNode<TreeNode*> st;
+    stack<TreeNode*> st;
     TreeNode* p;
     TreeNode* root = nullptr; // Initialize root to nullptr
     bool flag = false;

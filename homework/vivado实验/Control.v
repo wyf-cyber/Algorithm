@@ -69,13 +69,12 @@ module Control(
     assign MemtoReg[1] = jtype | jalr;    
 
     //操作指令生成运算操作类型ALUOp
-    //ALUOp_nop  5'b00000
     //ALUOp_add  5'b00011
     //ALUOp_beq  5'b00100
     //ALUOp_sub  5'b00100
     //ALUOp_slti 5'b01000
     //ALUOp_jal  5'b10000
-    //ALUOp_jalr 5'b10000
+    //ALUOp_jalr 5'b00000
     assign ALUOp[0] = i_add  | i_addi|stype|itype_l ;
     assign ALUOp[1] = i_add  | stype|itype_l | i_addi;
     assign ALUOp[2] = sb_beq | i_sub;
@@ -84,6 +83,7 @@ module Control(
     //操作指令生成常数扩展操作    
     // jalr 010000
     // jal  000001
+    // beq  000100
     assign EXTOp[0] =  j_jal;
     assign EXTOp[2] =  sb_beq;
     assign EXTOp[3] =  stype;
