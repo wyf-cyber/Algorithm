@@ -5,43 +5,42 @@ using namespace std;
 
 /*
 QuickSort Rules:
-1.初始化：默认选取当前区间最左段的点作为base，左指针指向base，右指针指向区间最右侧端点
-2.比较两个指针所指节点的值，若左指针指向元素的值大于右指针，则交换两个节点的位置，此时base的状态也将随之转换到另一个指针上
-3.比较过程完成后，拥有base状态的指针不动，另一个指针向base指针移动一步，继续进行比较
-4.当两个指针指向同一个节点时，本轮排序结束，将除终止节点以外的左右两个区间调用递归函数，继续检查
+1. 初始化：默认选取当前区间最左段的点作为base，左指针指向base，右指针指向区间最右侧端点
+2. 移动非空格状态的指针right，比较base与right指针所指节点的值，
+若base的值大于右指针，则将nums[right]填入nums[left]中，此时nums[right]成为新的空格，
+用于暂存base，此时base的状态也将随之转换到另一个指针上
+3. 移动非空格状态的指针left，比较base与left指针所指节点的值，
+若base小于nums[left]则可知nums[right]<base<nums[left]，故将nums[left]填入处于空格状态的nums[right]中，
+此时num[left]再次成为空格状态，right减一表示摆脱空格状态
+4. 当两个指针指向同一个节点时，本轮排序结束，将除终止节点以外的左右两个区间调用递归函数，继续检查
 */
 
-void quickSort(vector<int>& nums, int left, int right) {
-    int begin = left;            // 记录区间的位置
-    int end = right;
-    bool leftIsBase = true;      // 记录轴点的位置
-    while (left < right) {
-        // 比较两个节点的大小
-        if (nums[left] > nums[right]) {
-            int temp = nums[left];
+int divide(vector<int>& nums, int left, int right) {
+    int base = nums[left];
+    while(left < right) {
+        while(left < right && base < nums[right]) right--; // 跳过满足条件的数值对
+        if(left < right) {
+            // 右指针所指元素值比base小，将该值填入base所在的空位置中
             nums[left] = nums[right];
-            nums[right] = temp;
-            // 转换base节点位置
-            if (leftIsBase) {
-                leftIsBase = false;
-            }
-            else {
-                leftIsBase = true;
-            }
-        }
-        // 更新指针位置
-        if (leftIsBase) {
+            left++;
+        } 
+        while(left < right && nums[left] <= base) left++;
+        if(left < right) {
+            // 注意在经过上面的操作后，nums[right]已经成为暂存base的新空格
+            nums[right] = nums[left];
             right--;
         }
-        else {
-            left++;
-        }
     }
-    // 递归处理左右子序列
-    if (begin < left - 1) quickSort(nums, begin, left - 1);
-    if (left + 1 < end) quickSort(nums, left + 1, end);
+    nums[left] = base;
+    return left;
 }
 
+void quickSort(vector<int>& nums, int begin, int end) {
+    if(end <= begin) return;
+    int mid = divide(nums, begin, end);
+    quickSort(nums, begin, mid-1);
+    quickSort(nums, mid+1, end);
+}
 /*
 heapSort Rules:
 1.使用大根堆可以得到升序序列，使用小根堆可以得到降序序列
@@ -60,12 +59,12 @@ void shiftDown(vector<int>& nums, int begin, int end) {
     // 在区间[begin, end]内排序
     int i = begin;
     int j = 2 * i + 1;
-    int temp = nums[i];
-    while (j <= end) {
-        if (j < end && nums[j] < nums[j + 1]) {
+    int base = nums[i];
+    while (j <= end) { // 因为要确保比较到最后一个节点，所以使用<=
+        if (j < end && nums[j] < nums[j + 1]) { // 因为要确保j+1<=end，所以j<end
             j = j + 1;
         }
-        if (nums[j] > temp) {
+        if (nums[j] > base) {
             nums[i] = nums[j];
             // 更新指针，检查调整后的子堆是否满足大根堆条件
             i = j;
@@ -77,17 +76,17 @@ void shiftDown(vector<int>& nums, int begin, int end) {
         }
     }
     // 将最初的根节点的值存入数组
-    nums[i] = temp;
+    nums[i] = base;
 }
 
 void heapSort(vector<int>& nums) {
     int n = nums.size();
     // 循环建立初始堆
-    for (int i = n / 2 - 1; i >= 0; i--) {
+    for (int i = n / 2 - 1; i >= 0; i--) {  // 注意要处理区间[0, n/2-1]，所以i>=0
         shiftDown(nums, i, n - 1);
     }
     // 进行n-1趟排序，每一次排序后无序区的元素个数减一
-    for (int i = n - 1; i > 0; i--) {
+    for (int i = n - 1; i > 0; i--) {       // 注意i-1>=0，所以i>0
         int temp = nums[i];        // 将大根堆堆顶元素加入有序区，因为堆顶元素是无序区的最大元素
         nums[i] = nums[0];
         nums[0] = temp;

@@ -104,7 +104,7 @@ int main() {
     // 译码部分
     // 将文件流 input 中的内容读取到 fileContent 字符串中。fileContent 就包含了整个文件的内容，是一个字符串对象
     string fileContent((istreambuf_iterator<char>(input)), (istreambuf_iterator<char>()));
-
+    
     cout << decoding(fileContent, root);
 
     // 释放内存

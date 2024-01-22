@@ -9,11 +9,11 @@ void printMatrix(int n) {
     int count = 1;        // 用于记录每一格中应该放置的数字
     int offset = 1;       // 定义矩阵的右侧偏置量，每一圈增大1
     vector<vector<int>> matrix(n, vector<int>(n, 0));
-    for(int i = 0; i < n/2; i ++) {
+    for(int i = 0; i < n/2; i++) {
         // 循环[n/2]圈
         // n 是奇数，循环 n/2 - 1 圈
         // n 是偶数，循环 n/2 圈
-
+        
         // 从左向右打印上方的一行
         for(int j = startX; j < n - offset; j++) {
             matrix[i][j] = count;

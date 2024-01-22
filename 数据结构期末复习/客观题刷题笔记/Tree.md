@@ -65,7 +65,7 @@ struct CNode {
 // 12(1,32(1,2,3))
 // 12(1(4(33,5),32(1,2,3)))
 void trans(vector<string> s, vector<PNode*>& tree, int parent = -1) {
-    // change the expression into tree array
+    // change the array into tree format
     if(s.size() == 0) return;
     // cope with the current root
     PNode* node = new PNode(s[0], parent);

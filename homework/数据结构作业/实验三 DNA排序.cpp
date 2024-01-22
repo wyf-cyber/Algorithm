@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <utility>
+// #include <utility>
 using namespace std;
 
 // 获取输入字符串中逆序对的个数
