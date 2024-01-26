@@ -106,13 +106,19 @@ elements_int = [int(i) for i in elements_list]
 ## 二、输出
 Python的输出主要使用print()和wirte()函数
 ### （一） print()函数用法
-print()函数没有返回值，括号内填入要输出的内容，print()有自动换行功能，两个print()函数将分别在上下两行输出结果
+> print(value1, value2, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+- value:将要输出的元素
+- sep:决定同一个print()函数中的各个元素之间用什么方式间隔，默认为空格' '
+- end:决定该print()函数与下一个print()函数的输出之间用什么方式间隔，默认为换行符'\n'
+- file:决定输出到标准输出还是指定文件，默认为标准输出
+- flush: 指定是否刷新输出缓冲，默认为 False。
 1. 输出单个元素
 ~~~py
 a = 24
 print(a)
 ~~~
-2. 输出列表
+1. 输出列表
 print()函数可以通过读取列表名直接在一行之内输出整个列表，列表元素之间以", "分割，列表两端有方括号标明列表范围
 ~~~py
 elements = [12,4,2,3,55]
@@ -120,7 +126,7 @@ print(elements)
 # 输出结果
 # [12, 4, 2, 3, 55]
 ~~~
-3. 插入值
+1. 插入值
 ~~~py
 name = 'student'
 age = 99
@@ -144,7 +150,7 @@ sys.stdout.write('My name is {},and I am {} years old.'.format(name, age))
 ~~~
 运行结果：
 > My name is student,and I am 99 years old.My name is student,and I am 99 years old.
-2. 文件输出流
+1. 文件输出流
 write()结合open()函数可以实现对其他文件的读取与修改，open()函数主要有两个参数，第一个参数是目标文件的相对路径或绝对路径，第二个参数是操作的类型mode。
 mode有多个值，默认为 'r'（只读）。其他常用的模式包括 'w'（写入）、'a'（追加）、'rb'（二进制读取）等。
 ~~~py
